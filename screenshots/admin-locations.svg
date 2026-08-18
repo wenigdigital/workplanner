@@ -1,0 +1,38 @@
+<svg width="1280" height="760" viewBox="0 0 1280 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="760" fill="#101820"/>
+  <rect x="72" y="58" width="1136" height="644" rx="18" fill="#17212b" stroke="#334254"/>
+  <text x="112" y="118" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#f7fbff">Workplanner settings</text>
+  <text x="112" y="151" font-family="Arial, sans-serif" font-size="17" fill="#b9c6d4">Manage the locations that users can select.</text>
+  <rect x="112" y="194" width="438" height="420" rx="14" fill="#202d38" stroke="#3a4b5e"/>
+  <text x="142" y="242" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#f7fbff">Add location</text>
+  <text x="142" y="292" font-family="Arial, sans-serif" font-size="14" fill="#cbd6e2">Name</text>
+  <rect x="142" y="306" width="348" height="44" rx="8" fill="#121b24" stroke="#4c6074"/>
+  <text x="164" y="334" font-family="Arial, sans-serif" font-size="16" fill="#eef5fb">Headquarters</text>
+  <text x="142" y="386" font-family="Arial, sans-serif" font-size="14" fill="#cbd6e2">Color</text>
+  <rect x="142" y="400" width="58" height="44" rx="8" fill="#2fb36d"/>
+  <rect x="214" y="400" width="58" height="44" rx="8" fill="#2d7dd2"/>
+  <rect x="286" y="400" width="58" height="44" rx="8" fill="#a66cff"/>
+  <rect x="358" y="400" width="58" height="44" rx="8" fill="#f0b429"/>
+  <rect x="142" y="520" width="152" height="44" rx="22" fill="#0082c9"/>
+  <text x="178" y="548" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#ffffff">Save</text>
+  <rect x="592" y="194" width="536" height="420" rx="14" fill="#202d38" stroke="#3a4b5e"/>
+  <text x="622" y="242" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#f7fbff">Locations</text>
+  <g font-family="Arial, sans-serif" font-size="16">
+    <line x1="622" y1="276" x2="1098" y2="276" stroke="#3a4b5e"/>
+    <circle cx="646" cy="320" r="11" fill="#2fb36d"/>
+    <text x="676" y="326" fill="#f7fbff">Office</text>
+    <text x="1006" y="326" fill="#9fb2c4">Edit</text>
+    <line x1="622" y1="354" x2="1098" y2="354" stroke="#3a4b5e"/>
+    <circle cx="646" cy="398" r="11" fill="#2d7dd2"/>
+    <text x="676" y="404" fill="#f7fbff">Home office</text>
+    <text x="1006" y="404" fill="#9fb2c4">Edit</text>
+    <line x1="622" y1="432" x2="1098" y2="432" stroke="#3a4b5e"/>
+    <circle cx="646" cy="476" r="11" fill="#a66cff"/>
+    <text x="676" y="482" fill="#f7fbff">Remote</text>
+    <text x="1006" y="482" fill="#9fb2c4">Edit</text>
+    <line x1="622" y1="510" x2="1098" y2="510" stroke="#3a4b5e"/>
+    <circle cx="646" cy="554" r="11" fill="#f0b429"/>
+    <text x="676" y="560" fill="#f7fbff">Customer site</text>
+    <text x="1006" y="560" fill="#9fb2c4">Edit</text>
+  </g>
+</svg>

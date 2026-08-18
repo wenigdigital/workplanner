@@ -4,6 +4,14 @@ Workplanner is a Nextcloud app for planning team work locations.
 
 Administrators can manage available locations in the Nextcloud administration settings. Users can add their planned work location in a shared weekly or monthly overview. Past plans remain visible but can no longer be changed.
 
+## Screenshots
+
+![Weekly overview](screenshots/week-overview.svg)
+
+![Location management](screenshots/admin-locations.svg)
+
+![Mobile quick entry](screenshots/mobile-quick-entry.svg)
+
 ## Features
 
 - Shared weekly and monthly planning overview
