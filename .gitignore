@@ -1,0 +1,6 @@
+/vendor/
+/node_modules/
+/.php-cs-fixer.cache
+/tests/.phpunit.cache
+*.zip
+*.tar.gz

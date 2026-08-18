@@ -1,0 +1,11 @@
+{
+	"name": "workplanner/workplanner",
+	"description": "Plan work locations in Nextcloud",
+	"type": "project",
+	"license": "AGPL-3.0-or-later",
+	"autoload": {
+		"psr-4": {
+			"OCA\\Workplanner\\": "lib/"
+		}
+	}
+}

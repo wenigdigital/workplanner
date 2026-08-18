@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>workplanner</id>
+	<name>Workplanner</name>
+	<summary>Arbeitsortplanung für Teams mit Wochen- und Monatsansicht, Standortverwaltung und Kalenderfeed.</summary>
+	<description>Mit Workplanner planen Nextcloud-Benutzer ihren Arbeitsort pro Tag oder Zeitraum. Admins verwalten Standorte, alle Einträge bleiben im Team sichtbar und können per Kalenderfeed gelesen werden.</description>
+	<version>1.3.3</version>
+	<licence>AGPL-3.0-or-later</licence>
+	<author mail="wenigdigital@gmail.com">Toni Wenig</author>
+	<namespace>Workplanner</namespace>
+	<category>organization</category>
+	<bugs>https://github.com/wenigdigital/workplanner/issues</bugs>
+	<dependencies>
+		<nextcloud min-version="30" max-version="34"/>
+	</dependencies>
+	<navigations>
+		<navigation>
+			<name>Workplanner</name>
+			<route>workplanner.page.index</route>
+			<order>65</order>
+		</navigation>
+	</navigations>
+	<settings>
+		<admin>OCA\Workplanner\Settings\Admin</admin>
+		<admin-section>OCA\Workplanner\Settings\AdminSection</admin-section>
+	</settings>
+</info>
