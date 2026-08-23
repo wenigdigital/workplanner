@@ -73,6 +73,26 @@ class LocationController extends Controller {
 		return new DataResponse(['locations' => $this->getLocations(false)]);
 	}
 
+	public function restore(int $id): DataResponse {
+		$qb = $this->db->getQueryBuilder();
+		$qb->update('workplanner_locations')
+			->set('active', $qb->createNamedParameter(1, IQueryBuilder::PARAM_INT))
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+			->executeStatement();
+
+		return new DataResponse(['locations' => $this->getLocations(false)]);
+	}
+
+	public function purge(int $id): DataResponse {
+		$qb = $this->db->getQueryBuilder();
+		$qb->delete('workplanner_locations')
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+			->andWhere($qb->expr()->eq('active', $qb->createNamedParameter(0, IQueryBuilder::PARAM_INT)))
+			->executeStatement();
+
+		return new DataResponse(['locations' => $this->getLocations(false)]);
+	}
+
 	private function getLocations(bool $activeOnly): array {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')

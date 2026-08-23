@@ -61,16 +61,33 @@
 		tbody.innerHTML = '';
 		locations.forEach(location => {
 			const row = document.createElement('tr');
-			row.innerHTML = '<td><div class="workplanner-admin__location"><span class="workplanner-admin__swatch"></span><strong></strong></div></td><td></td><td></td><td><button type="button" class="button edit"></button><button type="button" class="button delete"></button></td>';
+			row.innerHTML = '<td><div class="workplanner-admin__location"><span class="workplanner-admin__swatch"></span><strong></strong></div></td><td></td><td></td><td><div class="workplanner-admin__actions"><button type="button" class="button edit"></button><button type="button" class="button toggle"></button><button type="button" class="button purge" hidden></button></div></td>';
 			row.querySelector('.workplanner-admin__swatch').style.background = location.color;
 			row.querySelector('strong').textContent = location.name;
 			row.children[1].textContent = location.description || '';
 			row.children[2].textContent = location.active ? translate('Active') : translate('Inactive');
 			row.querySelector('.edit').textContent = translate('Edit');
-			row.querySelector('.delete').textContent = translate('Disable');
+			row.querySelector('.toggle').textContent = location.active ? translate('Disable') : translate('Activate');
+			row.querySelector('.purge').textContent = translate('Delete permanently');
+			row.querySelector('.purge').hidden = !!location.active;
 			row.querySelector('.edit').addEventListener('click', () => fillForm(location));
-			row.querySelector('.delete').addEventListener('click', () => {
-				request('/locations/' + location.id, { method: 'DELETE' })
+			row.querySelector('.toggle').addEventListener('click', () => {
+				request(location.active ? '/locations/' + location.id : '/locations/' + location.id + '/restore', {
+					method: location.active ? 'DELETE' : 'POST',
+				})
+					.then(data => {
+						locations = data.locations;
+						render();
+						resetForm();
+					})
+					.catch(error => setStatus(error.message, true));
+			});
+			row.querySelector('.purge').addEventListener('click', () => {
+				if (!confirm(translate('Delete this inactive location permanently?'))) {
+					return;
+				}
+
+				request('/locations/' + location.id + '/purge', { method: 'DELETE' })
 					.then(data => {
 						locations = data.locations;
 						render();

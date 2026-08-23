@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.4
+
+- Added real screenshots to the README.
+- Added restore and permanent delete actions for inactive locations.
+
 ## 1.3.3
 
 - Improved responsive layout and modernized styling.

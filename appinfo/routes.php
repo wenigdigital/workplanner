@@ -15,5 +15,7 @@ return [
 		['name' => 'location#create', 'url' => '/locations', 'verb' => 'POST'],
 		['name' => 'location#update', 'url' => '/locations/{id}', 'verb' => 'PUT'],
 		['name' => 'location#delete', 'url' => '/locations/{id}', 'verb' => 'DELETE'],
+		['name' => 'location#restore', 'url' => '/locations/{id}/restore', 'verb' => 'POST'],
+		['name' => 'location#purge', 'url' => '/locations/{id}/purge', 'verb' => 'DELETE'],
 	],
 ];

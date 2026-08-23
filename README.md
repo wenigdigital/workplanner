@@ -6,11 +6,13 @@ Administrators can manage available locations in the Nextcloud administration se
 
 ## Screenshots
 
-![Weekly overview](screenshots/week-overview.svg)
+![Overview](screenshots/overview.png)
 
-![Location management](screenshots/admin-locations.svg)
+![Add planning entry](screenshots/add-entry.png)
 
-![Mobile quick entry](screenshots/mobile-quick-entry.svg)
+![Location management](screenshots/admin.png)
+
+![Mobile quick entry](screenshots/quick-entry.png)
 
 ## Features
 

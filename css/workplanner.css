@@ -59,6 +59,11 @@
 	align-items: center;
 }
 
+.workplanner-admin__actions {
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
 .workplanner__controls .button,
 .workplanner-admin__actions .button,
 .workplanner-dialog__actions .button,
@@ -426,7 +431,7 @@
 }
 
 .workplanner-admin__table td:last-child {
-	white-space: nowrap;
+	min-width: 260px;
 }
 
 @media (max-width: 900px) {
