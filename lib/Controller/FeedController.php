@@ -95,7 +95,7 @@ class FeedController extends Controller {
 		$end = (new DateTimeImmutable('+18 months'))->format('Y-m-d');
 
 		$qb = $this->db->getQueryBuilder();
-		$qb->select('p.id', 'p.user_id', 'p.day', 'p.note', 'p.note_text', 'p.time_value', 'p.time_from', 'p.time_to', 'l.name')
+		$qb->select('p.id', 'p.user_id', 'p.day', 'p.location_id', 'p.location_name', 'p.note', 'p.note_text', 'p.time_value', 'p.time_from', 'p.time_to', 'l.name')
 			->from('workplanner_plans', 'p')
 			->leftJoin('p', 'workplanner_locations', 'l', $qb->expr()->eq('p.location_id', 'l.id'))
 			->where($qb->expr()->gte('p.day', $qb->createNamedParameter($start)))
@@ -117,13 +117,15 @@ class FeedController extends Controller {
 		$day = (string)$plan['day'];
 		$timeFrom = (string)($plan['time_from'] ?? '');
 		$timeTo = (string)($plan['time_to'] ?? '');
-		$location = (string)($plan['name'] ?? 'Standort');
+		$locationDeleted = ($plan['location_id'] ?? null) !== null && ($plan['name'] ?? null) === null;
+		$location = (string)((($plan['name'] ?? '') !== '') ? $plan['name'] : (($plan['location_name'] ?? '') !== '' ? $plan['location_name'] : 'Gelöschter Standort'));
+		$locationLabel = $locationDeleted ? $location . ' (gelöscht)' : $location;
 		$userId = (string)$plan['user_id'];
 		$note = (string)((($plan['note_text'] ?? '') !== '') ? $plan['note_text'] : ($plan['note'] ?? ''));
-		$summary = trim($location . ' - ' . $userId, ' -');
+		$summary = trim($locationLabel . ' - ' . $userId, ' -');
 		$description = trim(implode("\n", array_filter([
 			'Benutzer: ' . $userId,
-			'Standort: ' . $location,
+			'Standort: ' . $locationLabel,
 			$this->formatTimeRange($timeFrom, $timeTo) !== '' ? 'Zeit: ' . $this->formatTimeRange($timeFrom, $timeTo) : '',
 			$note,
 		])));
@@ -133,7 +135,7 @@ class FeedController extends Controller {
 			'UID:workplanner-' . (int)$plan['id'] . '@nextcloud',
 			'DTSTAMP:' . gmdate('Ymd\THis\Z'),
 			'SUMMARY:' . $this->escapeText($summary),
-			'LOCATION:' . $this->escapeText($location),
+			'LOCATION:' . $this->escapeText($locationLabel),
 			'DESCRIPTION:' . $this->escapeText($description),
 		];
 

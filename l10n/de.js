@@ -57,8 +57,10 @@ OC.L10N.register(
 		"Not logged in.": "Nicht angemeldet.",
 		"Invalid date.": "Ungültiges Datum.",
 		"Past planning entries cannot be changed.": "Vergangene Planungen können nicht geändert werden.",
-		"Unknown location.": "Unbekannter Standort."
-		,"Planning entry not found.": "Planungseintrag wurde nicht gefunden."
+		"Unknown location.": "Unbekannter Standort.",
+		"Planning entry not found.": "Planungseintrag wurde nicht gefunden.",
+		"Deleted location": "Gelöschter Standort",
+		"deleted": "gelöscht"
 	},
 	"nplurals=2; plural=(n != 1);"
 );

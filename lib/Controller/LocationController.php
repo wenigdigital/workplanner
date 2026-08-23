@@ -84,6 +84,16 @@ class LocationController extends Controller {
 	}
 
 	public function purge(int $id): DataResponse {
+		$location = $this->getLocationById($id);
+		if ($location !== null) {
+			$qb = $this->db->getQueryBuilder();
+			$qb->update('workplanner_plans')
+				->set('location_name', $qb->createNamedParameter($location['name']))
+				->set('location_color', $qb->createNamedParameter($location['color']))
+				->where($qb->expr()->eq('location_id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+				->executeStatement();
+		}
+
 		$qb = $this->db->getQueryBuilder();
 		$qb->delete('workplanner_locations')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
@@ -91,6 +101,27 @@ class LocationController extends Controller {
 			->executeStatement();
 
 		return new DataResponse(['locations' => $this->getLocations(false)]);
+	}
+
+	private function getLocationById(int $id): ?array {
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('name', 'color')
+			->from('workplanner_locations')
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+			->setMaxResults(1);
+
+		$result = $qb->executeQuery();
+		$row = $result->fetch();
+		$result->closeCursor();
+
+		if (!$row) {
+			return null;
+		}
+
+		return [
+			'name' => (string)$row['name'],
+			'color' => (string)$row['color'],
+		];
 	}
 
 	private function getLocations(bool $activeOnly): array {

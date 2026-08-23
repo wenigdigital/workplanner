@@ -162,7 +162,10 @@
 					item.innerHTML = '<span class="workplanner-plan__dot"></span><div class="workplanner-plan__content"><strong></strong><small></small><div class="workplanner-plan__actions" hidden><button type="button" class="button edit"></button><button type="button" class="button delete"></button></div></div>';
 					item.querySelector('.workplanner-plan__dot').style.background = plan.color;
 					item.querySelector('strong').textContent = plan.userId;
-					item.querySelector('small').textContent = [plan.locationName || translate('Location'), plan.timeValue, plan.note].filter(Boolean).join(' - ');
+					const locationName = plan.locationDeleted
+						? (plan.locationName || translate('Deleted location')) + ' (' + translate('deleted') + ')'
+						: (plan.locationName || translate('Location'));
+					item.querySelector('small').textContent = [locationName, plan.timeValue, plan.note].filter(Boolean).join(' - ');
 					if (plan.editable) {
 						const actions = item.querySelector('.workplanner-plan__actions');
 						actions.hidden = false;

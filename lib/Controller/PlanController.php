@@ -51,7 +51,8 @@ class PlanController extends Controller {
 		if ($this->isPast($day)) {
 			return new DataResponse(['error' => 'Past planning entries cannot be changed.'], 403);
 		}
-		if ($locationId !== null && !$this->locationExists($locationId)) {
+		$location = $locationId !== null ? $this->getLocationDetails($locationId, true) : null;
+		if ($locationId !== null && $location === null) {
 			return new DataResponse(['error' => 'Unknown location.'], 400);
 		}
 
@@ -75,6 +76,8 @@ class PlanController extends Controller {
 			$qb->update('workplanner_plans')
 				->set('day', $qb->createNamedParameter($day))
 				->set('location_id', $qb->createNamedParameter($locationId, IQueryBuilder::PARAM_INT))
+				->set('location_name', $qb->createNamedParameter($location['name'] ?? ''))
+				->set('location_color', $qb->createNamedParameter($location['color'] ?? '#6b7280'))
 				->set('note', $qb->createNamedParameter($notePreview))
 				->set('note_text', $qb->createNamedParameter($note))
 				->set('time_value', $qb->createNamedParameter($timeValue))
@@ -91,6 +94,8 @@ class PlanController extends Controller {
 					'user_id' => $qb->createNamedParameter($this->userId),
 					'day' => $qb->createNamedParameter($day),
 					'location_id' => $qb->createNamedParameter($locationId, IQueryBuilder::PARAM_INT),
+					'location_name' => $qb->createNamedParameter($location['name'] ?? ''),
+					'location_color' => $qb->createNamedParameter($location['color'] ?? '#6b7280'),
 					'note' => $qb->createNamedParameter($notePreview),
 					'note_text' => $qb->createNamedParameter($note),
 					'time_value' => $qb->createNamedParameter($timeValue),
@@ -148,7 +153,7 @@ class PlanController extends Controller {
 
 	private function getPlans(string $start, string $end): array {
 		$qb = $this->db->getQueryBuilder();
-		$qb->select('p.id', 'p.user_id', 'p.day', 'p.location_id', 'p.note', 'p.note_text', 'p.time_value', 'p.time_from', 'p.time_to', 'l.name', 'l.color')
+		$qb->select('p.id', 'p.user_id', 'p.day', 'p.location_id', 'p.location_name', 'p.location_color', 'p.note', 'p.note_text', 'p.time_value', 'p.time_from', 'p.time_to', 'l.name', 'l.color')
 			->from('workplanner_plans', 'p')
 			->leftJoin('p', 'workplanner_locations', 'l', $qb->expr()->eq('p.location_id', 'l.id'))
 			->where($qb->expr()->gte('p.day', $qb->createNamedParameter($start)))
@@ -163,19 +168,25 @@ class PlanController extends Controller {
 		$rows = $result->fetchAll();
 		$result->closeCursor();
 
-		return array_map(fn(array $row): array => [
-			'id' => (int)$row['id'],
-			'userId' => $row['user_id'],
-			'day' => $row['day'],
-			'locationId' => $row['location_id'] !== null ? (int)$row['location_id'] : null,
-			'locationName' => $row['name'] ?? '',
-			'color' => $row['color'] ?? '#6b7280',
-			'note' => ($row['note_text'] ?? '') !== '' ? $row['note_text'] : ($row['note'] ?? ''),
-			'timeFrom' => $row['time_from'] ?? '',
-			'timeTo' => $row['time_to'] ?? '',
-			'timeValue' => $this->formatTimeRange($row['time_from'] ?? '', $row['time_to'] ?? '') ?: ($row['time_value'] ?? ''),
-			'editable' => $row['user_id'] === $this->userId && !$this->isPast($row['day']),
-		], $rows);
+		return array_map(function(array $row): array {
+			$locationDeleted = ($row['location_id'] !== null && ($row['name'] ?? null) === null);
+			$locationName = ($row['name'] ?? '') !== '' ? $row['name'] : ($row['location_name'] ?? '');
+
+			return [
+				'id' => (int)$row['id'],
+				'userId' => $row['user_id'],
+				'day' => $row['day'],
+				'locationId' => $row['location_id'] !== null ? (int)$row['location_id'] : null,
+				'locationName' => $locationName !== '' ? $locationName : 'Deleted location',
+				'locationDeleted' => $locationDeleted,
+				'color' => ($row['color'] ?? '') !== '' ? $row['color'] : (($row['location_color'] ?? '') !== '' ? $row['location_color'] : '#6b7280'),
+				'note' => ($row['note_text'] ?? '') !== '' ? $row['note_text'] : ($row['note'] ?? ''),
+				'timeFrom' => $row['time_from'] ?? '',
+				'timeTo' => $row['time_to'] ?? '',
+				'timeValue' => $this->formatTimeRange($row['time_from'] ?? '', $row['time_to'] ?? '') ?: ($row['time_value'] ?? ''),
+				'editable' => $row['user_id'] === $this->userId && !$this->isPast($row['day']),
+			];
+		}, $rows);
 	}
 
 	private function findOwnPlanById(int $id): ?array {
@@ -192,18 +203,29 @@ class PlanController extends Controller {
 		return $row ?: null;
 	}
 
-	private function locationExists(int $locationId): bool {
+	private function getLocationDetails(int $locationId, bool $activeOnly): ?array {
 		$qb = $this->db->getQueryBuilder();
-		$qb->select('id')
+		$qb->select('id', 'name', 'color')
 			->from('workplanner_locations')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($locationId, IQueryBuilder::PARAM_INT)))
-			->andWhere($qb->expr()->eq('active', $qb->createNamedParameter(1, IQueryBuilder::PARAM_INT)))
 			->setMaxResults(1);
+
+		if ($activeOnly) {
+			$qb->andWhere($qb->expr()->eq('active', $qb->createNamedParameter(1, IQueryBuilder::PARAM_INT)));
+		}
+
 		$result = $qb->executeQuery();
 		$row = $result->fetch();
 		$result->closeCursor();
 
-		return (bool)$row;
+		if (!$row) {
+			return null;
+		}
+
+		return [
+			'name' => (string)$row['name'],
+			'color' => (string)$row['color'],
+		];
 	}
 
 	private function isValidDay(string $day): bool {

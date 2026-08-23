@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5
+
+- Keep location names visible on existing planning entries after a location is permanently deleted.
+
 ## 1.3.4
 
 - Added real screenshots to the README.
