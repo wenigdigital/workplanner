@@ -5,8 +5,6 @@
 	<name>Workplanner</name>
 	<summary>Arbeitsorte wie Büro, Homeoffice oder Außendienst gemeinsam im Team planen.</summary>
 	<description><![CDATA[
-# Workplanner
-
 Workplanner ist eine praktische Planungs-App für Teams, die ihre Arbeitsorte direkt in Nextcloud koordinieren möchten. Die App eignet sich für hybride Teams, gemeinsam genutzte Büros, Projektgruppen, Außendienst-Teams und Organisationen, die schnell sehen möchten, wer wann an welchem Standort arbeitet.
 
 Statt separate Tabellen, Chat-Nachrichten oder externe Listen zu pflegen, planen Benutzer ihren Arbeitsort direkt in einer gemeinsamen kalenderähnlichen Übersicht. Alle sehen die aktuelle Teamplanung, während jeder Benutzer seine eigenen Einträge verwaltet.
