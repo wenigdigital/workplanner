@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.7
+
+- Improved the App Store description with clearer user, administrator, calendar, and use-case sections.
+
 ## 1.3.6
 
 - Added extended English and German App Store descriptions.

@@ -3,26 +3,48 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
 	<id>workplanner</id>
 	<name>Workplanner</name>
-	<summary lang="en">Plan team work locations with weekly and monthly views, location management, and calendar feed.</summary>
-	<summary lang="de">Arbeitsortplanung für Teams mit Wochen- und Monatsansicht, Standortverwaltung und Kalenderfeed.</summary>
+	<summary lang="en">Coordinate office, remote, and customer-site work in a shared team planning view.</summary>
+	<summary lang="de">Arbeitsorte wie Büro, Homeoffice oder Außendienst gemeinsam im Team planen.</summary>
 	<description lang="en"><![CDATA[
 # Workplanner
 
-Workplanner helps teams plan where they will work directly inside Nextcloud.
+Workplanner is a practical planning app for teams that want to coordinate where people are working without leaving Nextcloud. It is useful for hybrid teams, shared offices, project groups, field service teams, and organizations that need a quick overview of who is working from which location.
 
-Administrators manage the available locations in the Nextcloud administration settings. Users can create one or more planning entries per day, add optional time ranges and notes, and switch between a compact weekly overview and a monthly view.
+Instead of maintaining separate spreadsheets or chat messages, users plan their work location directly in a shared calendar-style overview. Everyone can see the current team planning, while each user remains responsible for their own entries.
 
-Past entries stay visible for transparency, but can no longer be changed. Inactive locations can be restored by administrators or permanently deleted. Existing planning entries keep the original location name visible even after a location was deleted.
+## For users
 
-The app also provides a read-only calendar feed, so the shared team planning can be subscribed to from smartphones, tablets, desktop calendars, and other calendar clients.
+Users get a clear overview of the team schedule and can switch between week and month views. Planning entries can include a location, an optional time range, and a note, so the app can cover simple full-day planning as well as more detailed daily schedules.
+
+Multiple entries per day are supported. This makes it possible to plan combinations such as office in the morning and customer appointment in the afternoon.
+
+A mobile quick entry page makes it easier to add plans from a smartphone or tablet without opening the full overview.
+
+## For administrators
+
+Administrators manage the available locations centrally in the Nextcloud administration settings. Locations can be color-coded, sorted, deactivated, restored, or permanently deleted.
+
+When a location is permanently deleted, existing planning entries keep the original location name and color. This keeps older planning records understandable instead of showing only an unknown or generic location.
+
+## Calendar integration
+
+Workplanner provides a tokenized, read-only calendar feed containing the shared planning entries. Users can subscribe to this feed from mobile devices, desktop calendars, and other calendar clients to keep the team plan visible outside the Nextcloud web interface.
+
+The feed is read-only. Planning changes still happen inside Workplanner, while external calendars are used for visibility.
+
+## Transparency and history
+
+Past entries remain visible for transparency, but can no longer be changed. This helps keep planning history reliable while still allowing users to plan upcoming days flexibly.
 
 ## Features
 
-- Shared weekly and monthly planning overview
+- Shared team planning overview
+- Weekly and monthly calendar-style views
 - Weekday-focused planning from Monday to Friday
 - Administrator-managed locations
+- Color-coded locations
 - Multiple planning entries per user and day
-- Optional time range and notes
+- Optional time ranges and notes
 - Past entries remain visible but read-only
 - Restore or permanently delete inactive locations
 - Deleted locations remain identifiable on existing entries
@@ -30,23 +52,54 @@ The app also provides a read-only calendar feed, so the shared team planning can
 - Mobile quick entry page
 - German and English interface texts
 - Design based on Nextcloud colors and dark mode variables
+
+## Typical use cases
+
+- Hybrid work planning
+- Office attendance coordination
+- Home office overview
+- Customer-site and field-service planning
+- Team availability by location
+- Shared planning for small and medium-sized organizations
 ]]></description>
 	<description lang="de"><![CDATA[
 # Workplanner
 
-Workplanner hilft Teams dabei, ihre Arbeitsorte direkt in Nextcloud zu planen.
+Workplanner ist eine praktische Planungs-App für Teams, die ihre Arbeitsorte direkt in Nextcloud koordinieren möchten. Die App eignet sich für hybride Teams, gemeinsam genutzte Büros, Projektgruppen, Außendienst-Teams und Organisationen, die schnell sehen möchten, wer wann an welchem Standort arbeitet.
 
-Administratoren verwalten die verfügbaren Standorte zentral in den Nextcloud-Verwaltungseinstellungen. Benutzer können pro Tag einen oder mehrere Planungseinträge erstellen, optional Zeiten und Notizen ergänzen und zwischen Wochen- und Monatsansicht wechseln.
+Statt separate Tabellen, Chat-Nachrichten oder externe Listen zu pflegen, planen Benutzer ihren Arbeitsort direkt in einer gemeinsamen kalenderähnlichen Übersicht. Alle sehen die aktuelle Teamplanung, während jeder Benutzer seine eigenen Einträge verwaltet.
 
-Vergangene Einträge bleiben zur Nachvollziehbarkeit sichtbar, können aber nicht mehr geändert werden. Inaktive Standorte können von Administratoren wieder aktiviert oder dauerhaft gelöscht werden. Bestehende Planungseinträge behalten den ursprünglichen Standortnamen sichtbar, auch wenn ein Standort später gelöscht wurde.
+## Für Benutzer
 
-Zusätzlich stellt die App einen schreibgeschützten Kalenderfeed bereit, der auf Smartphones, Tablets, Desktop-Kalendern und anderen Kalenderprogrammen abonniert werden kann.
+Benutzer erhalten eine übersichtliche Teamplanung und können zwischen Wochen- und Monatsansicht wechseln. Ein Planungseintrag kann einen Standort, eine optionale Zeitangabe von bis und eine Notiz enthalten. Dadurch eignet sich die App sowohl für einfache Tagesplanung als auch für genauere Tagesabläufe.
+
+Pro Tag sind mehrere Einträge möglich. So lassen sich zum Beispiel Büro am Vormittag und Kundentermin am Nachmittag planen.
+
+Eine mobile Schnelleintragung erleichtert das Erstellen neuer Einträge per Smartphone oder Tablet, ohne die vollständige Übersicht öffnen zu müssen.
+
+## Für Administratoren
+
+Administratoren verwalten die verfügbaren Standorte zentral in den Nextcloud-Verwaltungseinstellungen. Standorte können farblich markiert, sortiert, deaktiviert, wieder aktiviert oder dauerhaft gelöscht werden.
+
+Wenn ein Standort dauerhaft gelöscht wird, behalten bestehende Planungseinträge den ursprünglichen Standortnamen und die Farbe. Dadurch bleiben ältere Planungen nachvollziehbar und zeigen nicht nur einen unbekannten oder allgemeinen Standort an.
+
+## Kalenderintegration
+
+Workplanner stellt einen geschützten, schreibgeschützten Kalenderfeed mit allen Planungseinträgen bereit. Benutzer können diesen Feed auf Smartphones, Tablets, Desktop-Kalendern oder anderen Kalenderprogrammen abonnieren, um die Teamplanung auch außerhalb der Nextcloud-Weboberfläche sichtbar zu machen.
+
+Der Kalenderfeed ist nur lesbar. Änderungen an Planungen erfolgen weiterhin in Workplanner, externe Kalender dienen zur Anzeige.
+
+## Transparenz und Verlauf
+
+Vergangene Einträge bleiben zur Nachvollziehbarkeit sichtbar, können aber nicht mehr geändert werden. So bleibt die Planungshistorie verlässlich, während kommende Tage flexibel geplant werden können.
 
 ## Funktionen
 
-- Gemeinsame Wochen- und Monatsübersicht
+- Gemeinsame Team-Planungsübersicht
+- Wochen- und Monatsansicht im Kalenderstil
 - Planung für Werktage von Montag bis Freitag
 - Standortverwaltung für Administratoren
+- Farbige Standortmarkierungen
 - Mehrere Planungseinträge pro Benutzer und Tag
 - Optionale Zeitangabe von bis und Notizen
 - Vergangene Einträge bleiben sichtbar, aber schreibgeschützt
@@ -56,8 +109,17 @@ Zusätzlich stellt die App einen schreibgeschützten Kalenderfeed bereit, der au
 - Mobile Schnelleintragung
 - Deutsche und englische Oberflächentexte
 - Gestaltung auf Basis der Nextcloud-Farben inklusive Dark Mode
+
+## Typische Einsatzbereiche
+
+- Hybride Arbeitsplanung
+- Büro-Anwesenheitsplanung
+- Homeoffice-Übersicht
+- Außendienst- und Kundenterminplanung
+- Team-Verfügbarkeit nach Standort
+- Gemeinsame Planung für kleine und mittelgroße Organisationen
 ]]></description>
-	<version>1.3.6</version>
+	<version>1.3.7</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author mail="wenigdigital@gmail.com">Toni Wenig</author>
 	<namespace>Workplanner</namespace>
