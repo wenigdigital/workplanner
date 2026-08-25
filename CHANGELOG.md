@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.6
+
+- Added extended English and German App Store descriptions.
+- Added App Store screenshot metadata.
+- Added website and repository metadata.
+
 ## 1.3.5
 
 - Keep location names visible on existing planning entries after a location is permanently deleted.

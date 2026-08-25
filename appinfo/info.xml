@@ -3,14 +3,72 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
 	<id>workplanner</id>
 	<name>Workplanner</name>
-	<summary>Arbeitsortplanung für Teams mit Wochen- und Monatsansicht, Standortverwaltung und Kalenderfeed.</summary>
-	<description>Mit Workplanner planen Nextcloud-Benutzer ihren Arbeitsort pro Tag oder Zeitraum. Admins verwalten Standorte, alle Einträge bleiben im Team sichtbar und können per Kalenderfeed gelesen werden.</description>
-	<version>1.3.5</version>
+	<summary lang="en">Plan team work locations with weekly and monthly views, location management, and calendar feed.</summary>
+	<summary lang="de">Arbeitsortplanung für Teams mit Wochen- und Monatsansicht, Standortverwaltung und Kalenderfeed.</summary>
+	<description lang="en"><![CDATA[
+# Workplanner
+
+Workplanner helps teams plan where they will work directly inside Nextcloud.
+
+Administrators manage the available locations in the Nextcloud administration settings. Users can create one or more planning entries per day, add optional time ranges and notes, and switch between a compact weekly overview and a monthly view.
+
+Past entries stay visible for transparency, but can no longer be changed. Inactive locations can be restored by administrators or permanently deleted. Existing planning entries keep the original location name visible even after a location was deleted.
+
+The app also provides a read-only calendar feed, so the shared team planning can be subscribed to from smartphones, tablets, desktop calendars, and other calendar clients.
+
+## Features
+
+- Shared weekly and monthly planning overview
+- Weekday-focused planning from Monday to Friday
+- Administrator-managed locations
+- Multiple planning entries per user and day
+- Optional time range and notes
+- Past entries remain visible but read-only
+- Restore or permanently delete inactive locations
+- Deleted locations remain identifiable on existing entries
+- Tokenized read-only calendar feed
+- Mobile quick entry page
+- German and English interface texts
+- Design based on Nextcloud colors and dark mode variables
+]]></description>
+	<description lang="de"><![CDATA[
+# Workplanner
+
+Workplanner hilft Teams dabei, ihre Arbeitsorte direkt in Nextcloud zu planen.
+
+Administratoren verwalten die verfügbaren Standorte zentral in den Nextcloud-Verwaltungseinstellungen. Benutzer können pro Tag einen oder mehrere Planungseinträge erstellen, optional Zeiten und Notizen ergänzen und zwischen Wochen- und Monatsansicht wechseln.
+
+Vergangene Einträge bleiben zur Nachvollziehbarkeit sichtbar, können aber nicht mehr geändert werden. Inaktive Standorte können von Administratoren wieder aktiviert oder dauerhaft gelöscht werden. Bestehende Planungseinträge behalten den ursprünglichen Standortnamen sichtbar, auch wenn ein Standort später gelöscht wurde.
+
+Zusätzlich stellt die App einen schreibgeschützten Kalenderfeed bereit, der auf Smartphones, Tablets, Desktop-Kalendern und anderen Kalenderprogrammen abonniert werden kann.
+
+## Funktionen
+
+- Gemeinsame Wochen- und Monatsübersicht
+- Planung für Werktage von Montag bis Freitag
+- Standortverwaltung für Administratoren
+- Mehrere Planungseinträge pro Benutzer und Tag
+- Optionale Zeitangabe von bis und Notizen
+- Vergangene Einträge bleiben sichtbar, aber schreibgeschützt
+- Inaktive Standorte wieder aktivieren oder dauerhaft löschen
+- Gelöschte Standorte bleiben bei vorhandenen Einträgen erkennbar
+- Geschützter, schreibgeschützter Kalenderfeed
+- Mobile Schnelleintragung
+- Deutsche und englische Oberflächentexte
+- Gestaltung auf Basis der Nextcloud-Farben inklusive Dark Mode
+]]></description>
+	<version>1.3.6</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author mail="wenigdigital@gmail.com">Toni Wenig</author>
 	<namespace>Workplanner</namespace>
 	<category>organization</category>
+	<website>https://github.com/wenigdigital/workplanner</website>
 	<bugs>https://github.com/wenigdigital/workplanner/issues</bugs>
+	<repository type="git">https://github.com/wenigdigital/workplanner.git</repository>
+	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/overview.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/add-entry.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/admin.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/quick-entry.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="30" max-version="34"/>
 	</dependencies>
