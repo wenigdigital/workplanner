@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.8
+
+- Switched the App Store summary and description to plain metadata fields so the main app page shows the improved text.
+
 ## 1.3.7
 
 - Improved the App Store description with clearer user, administrator, calendar, and use-case sections.
