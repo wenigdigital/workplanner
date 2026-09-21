@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.9
+
+- Use PHP attributes instead of legacy docblock annotations for the public calendar feed route.
+- Reject planning entries where the end time is before the start time.
+- Distinguish plans without a location ("No location") from plans referencing a permanently deleted location.
+- Added a database index on `user_id` for planning entries.
+- Planning entries now show the user's display name instead of the account login, in both the overview and the calendar feed. The account name remains the fallback if no user is found.
+
 ## 1.3.8
 
 - Switched the App Store summary and description to plain metadata fields so the main app page shows the improved text.

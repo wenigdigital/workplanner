@@ -6,8 +6,10 @@ namespace OCA\Workplanner\Controller;
 
 use DateTimeImmutable;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\AnonRateLimit;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataDisplayResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\NotFoundResponse;
@@ -16,7 +18,10 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IRequest;
+use OCP\IL10N;
 use OCP\IURLGenerator;
+use OCP\IUser;
+use OCP\IUserManager;
 
 class FeedController extends Controller {
 	private const TOKEN_KEY = 'team_feed_token';
@@ -27,6 +32,8 @@ class FeedController extends Controller {
 		private IDBConnection $db,
 		private IConfig $config,
 		private IURLGenerator $urlGenerator,
+		private IUserManager $userManager,
+		private IL10N $l10n,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -41,10 +48,9 @@ class FeedController extends Controller {
 		]);
 	}
 
-	/**
-	 * @PublicPage
-	 * @NoCSRFRequired
-	 */
+	#[PublicPage]
+	#[NoCSRFRequired]
+	#[AnonRateLimit(limit: 60, period: 3600)]
 	public function show(string $token): Response {
 		if (!hash_equals($this->getOrCreateToken(), $token)) {
 			return new NotFoundResponse();
@@ -75,14 +81,17 @@ class FeedController extends Controller {
 			'PRODID:-//Workplanner//Nextcloud Workplanner//EN',
 			'CALSCALE:GREGORIAN',
 			'METHOD:PUBLISH',
-			'X-WR-CALNAME:' . $this->escapeText('Workplanner'),
-			'X-WR-CALDESC:' . $this->escapeText('Read-only team work location planning'),
+			'X-WR-CALNAME:' . $this->escapeText($this->l10n->t('Workplanner')),
+			'X-WR-CALDESC:' . $this->escapeText($this->l10n->t('Read-only team work location planning')),
 			'REFRESH-INTERVAL;VALUE=DURATION:PT1H',
 			'X-PUBLISHED-TTL:PT1H',
 		];
 
-		foreach ($this->getPlans() as $plan) {
-			$lines = array_merge($lines, $this->buildEvent($plan));
+		$plans = $this->getPlans();
+		$displayNames = $this->getDisplayNames(array_column($plans, 'user_id'));
+
+		foreach ($plans as $plan) {
+			$lines = array_merge($lines, $this->buildEvent($plan, $displayNames[$plan['user_id']] ?? (string)$plan['user_id']));
 		}
 
 		$lines[] = 'END:VCALENDAR';
@@ -113,20 +122,19 @@ class FeedController extends Controller {
 		return $rows;
 	}
 
-	private function buildEvent(array $plan): array {
+	private function buildEvent(array $plan, string $userName): array {
 		$day = (string)$plan['day'];
 		$timeFrom = (string)($plan['time_from'] ?? '');
 		$timeTo = (string)($plan['time_to'] ?? '');
 		$locationDeleted = ($plan['location_id'] ?? null) !== null && ($plan['name'] ?? null) === null;
-		$location = (string)((($plan['name'] ?? '') !== '') ? $plan['name'] : (($plan['location_name'] ?? '') !== '' ? $plan['location_name'] : 'Gelöschter Standort'));
-		$locationLabel = $locationDeleted ? $location . ' (gelöscht)' : $location;
-		$userId = (string)$plan['user_id'];
+		$location = (string)((($plan['name'] ?? '') !== '') ? $plan['name'] : (($plan['location_name'] ?? '') !== '' ? $plan['location_name'] : $this->l10n->t('Deleted location')));
+		$locationLabel = $locationDeleted ? $location . ' (' . $this->l10n->t('deleted') . ')' : $location;
 		$note = (string)((($plan['note_text'] ?? '') !== '') ? $plan['note_text'] : ($plan['note'] ?? ''));
-		$summary = trim($locationLabel . ' - ' . $userId, ' -');
+		$summary = trim($locationLabel . ' - ' . $userName, ' -');
 		$description = trim(implode("\n", array_filter([
-			'Benutzer: ' . $userId,
-			'Standort: ' . $locationLabel,
-			$this->formatTimeRange($timeFrom, $timeTo) !== '' ? 'Zeit: ' . $this->formatTimeRange($timeFrom, $timeTo) : '',
+			$this->l10n->t('User: ') . $userName,
+			$this->l10n->t('Location: ') . $locationLabel,
+			$this->formatTimeRange($timeFrom, $timeTo) !== '' ? $this->l10n->t('Time: ') . $this->formatTimeRange($timeFrom, $timeTo) : '',
 			$note,
 		])));
 
@@ -159,6 +167,20 @@ class FeedController extends Controller {
 		}
 
 		return $timeFrom !== '' ? $timeFrom : $timeTo;
+	}
+
+	private function getDisplayNames(array $userIds): array {
+		$names = [];
+		foreach (array_unique($userIds) as $userId) {
+			$user = $this->userManager->get((string)$userId);
+			if ($user instanceof IUser) {
+				$names[$userId] = $user->getDisplayName();
+			} else {
+				$names[$userId] = (string)$userId;
+			}
+		}
+
+		return $names;
 	}
 
 	private function escapeText(string $text): string {

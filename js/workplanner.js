@@ -10,6 +10,8 @@
 	const status = root.querySelector('[data-role="status"]');
 	const rangeTitle = root.querySelector('[data-role="range-title"]');
 	const modeSelect = root.querySelector('[data-role="view-mode"]');
+	const sortSelect = root.querySelector('[data-role="sort-mode"]');
+	const userFilterInput = root.querySelector('[data-role="user-filter"]');
 	const feed = root.querySelector('[data-role="feed"]');
 	const feedUrl = root.querySelector('[data-role="feed-url"]');
 	const copyFeedButton = root.querySelector('[data-action="copy-feed"]');
@@ -22,9 +24,12 @@
 	const timeToInput = dialogForm.elements.timeTo;
 	const noteInput = dialogForm.elements.note;
 	const deleteButton = dialog.querySelector('[data-action="delete"]');
+	const formError = dialog.querySelector('[data-role="form-error"]');
 
 	let current = startOfWeek(new Date());
 	let viewMode = 'week';
+	let sortMode = 'time';
+	let userFilter = '';
 	let payload = { today: isoDate(new Date()), userId: '', locations: [], plans: [] };
 	let selectedDay = null;
 	let selectedPlanId = 0;
@@ -118,8 +123,37 @@
 			+ end.toLocaleDateString(OC.getLanguage(), { day: '2-digit', month: '2-digit', year: 'numeric' });
 	}
 
+	function planUser(plan) {
+		return plan.userName || plan.userId;
+	}
+
+	function matchesFilter(plan) {
+		const query = userFilter.trim().toLowerCase();
+		if (!query) {
+			return true;
+		}
+		return planUser(plan).toLowerCase().includes(query) || (plan.userId || '').toLowerCase().includes(query);
+	}
+
+	function timeSort(a, b) {
+		if (a.timeFrom !== b.timeFrom) {
+			return a.timeFrom < b.timeFrom ? -1 : 1;
+		}
+		if (a.timeTo !== b.timeTo) {
+			return a.timeTo < b.timeTo ? -1 : 1;
+		}
+		return a.id - b.id;
+	}
+
 	function plansFor(day) {
-		return payload.plans.filter(plan => plan.day === day);
+		const plans = payload.plans.filter(plan => plan.day === day && matchesFilter(plan));
+		if (sortMode !== 'user') {
+			return plans;
+		}
+		return plans.slice().sort((a, b) => {
+			const byName = planUser(a).localeCompare(planUser(b), OC.getLanguage(), { sensitivity: 'base' });
+			return byName !== 0 ? byName : timeSort(a, b);
+		});
 	}
 
 	function render() {
@@ -155,13 +189,20 @@
 				empty.textContent = translate('No planning');
 				list.appendChild(empty);
 			} else {
-				dayPlans.forEach(plan => {
+				dayPlans.forEach((plan, index) => {
+					if (sortMode === 'user' && (index === 0 || planUser(dayPlans[index - 1]) !== planUser(plan))) {
+						const group = document.createElement('div');
+						group.className = 'workplanner-user';
+						group.textContent = planUser(plan);
+						list.appendChild(group);
+					}
 					const item = document.createElement('div');
 					item.className = 'workplanner-plan';
+					item.classList.toggle('workplanner-plan--grouped', sortMode === 'user');
 					item.style.borderColor = plan.color;
 					item.innerHTML = '<span class="workplanner-plan__dot"></span><div class="workplanner-plan__content"><strong></strong><small></small><div class="workplanner-plan__actions" hidden><button type="button" class="button edit"></button><button type="button" class="button delete"></button></div></div>';
 					item.querySelector('.workplanner-plan__dot').style.background = plan.color;
-					item.querySelector('strong').textContent = plan.userId;
+					item.querySelector('strong').textContent = planUser(plan);
 					const locationName = plan.locationDeleted
 						? (plan.locationName || translate('Deleted location')) + ' (' + translate('deleted') + ')'
 						: (plan.locationName || translate('Location'));
@@ -220,6 +261,7 @@
 		timeFromInput.value = plan ? (plan.timeFrom || '') : '';
 		timeToInput.value = plan ? (plan.timeTo || '') : '';
 		noteInput.value = plan ? plan.note : '';
+		formError.hidden = true;
 		deleteButton.hidden = !plan;
 		dialog.hidden = false;
 		locationSelect.focus();
@@ -237,8 +279,40 @@
 			.catch(error => setStatus(error.message, true));
 	}
 
+	function isCompleteTime(value) {
+		return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
+	}
+
+	function validateTimeRange() {
+		const from = timeFromInput.value;
+		const to = timeToInput.value;
+		if (from && to && from > to) {
+			formError.textContent = translate('The time range is invalid.');
+			formError.hidden = false;
+			return false;
+		}
+		formError.hidden = true;
+		return true;
+	}
+
+	timeFromInput.addEventListener('input', () => {
+		validateTimeRange();
+		if (isCompleteTime(timeFromInput.value)) {
+			(timeToInput.value === '' ? timeToInput : noteInput).focus();
+		}
+	});
+	timeToInput.addEventListener('input', () => {
+		validateTimeRange();
+		if (isCompleteTime(timeToInput.value)) {
+			noteInput.focus();
+		}
+	});
+
 	dialogForm.addEventListener('submit', event => {
 		event.preventDefault();
+		if (!validateTimeRange()) {
+			return;
+		}
 		request('/plans', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -279,6 +353,14 @@
 		viewMode = modeSelect.value;
 		current = viewMode === 'month' ? startOfMonth(current) : startOfWeek(current);
 		load();
+	});
+	sortSelect.addEventListener('change', () => {
+		sortMode = sortSelect.value;
+		render();
+	});
+	userFilterInput.addEventListener('input', () => {
+		userFilter = userFilterInput.value;
+		render();
 	});
 
 	copyFeedButton.addEventListener('click', () => {

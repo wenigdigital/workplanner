@@ -17,6 +17,11 @@ style('workplanner', 'workplanner');
 				<option value="week"><?php p($l->t('Week')); ?></option>
 				<option value="month"><?php p($l->t('Month')); ?></option>
 			</select>
+			<select data-role="sort-mode" aria-label="<?php p($l->t('Sort')); ?>">
+				<option value="time"><?php p($l->t('By time')); ?></option>
+				<option value="user"><?php p($l->t('By user')); ?></option>
+			</select>
+			<input type="text" data-role="user-filter" placeholder="<?php p($l->t('Filter users')); ?>" aria-label="<?php p($l->t('Filter users')); ?>" autocomplete="off">
 		</div>
 	</header>
 	<div class="workplanner__status" data-role="status"></div>
@@ -37,6 +42,7 @@ style('workplanner', 'workplanner');
 <div id="workplanner-dialog" class="workplanner-dialog" hidden>
 	<form class="workplanner-dialog__panel">
 		<h3 data-role="dialog-title"></h3>
+		<p data-role="form-error" class="workplanner-dialog__error" hidden></p>
 		<label>
 			<span><?php p($l->t('Location')); ?></span>
 			<select name="locationId" required></select>

@@ -12,12 +12,15 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserManager;
 
 class PlanController extends Controller {
 	public function __construct(
 		string $appName,
 		IRequest $request,
 		private IDBConnection $db,
+		private IUserManager $userManager,
 		?string $UserId,
 	) {
 		parent::__construct($appName, $request);
@@ -51,8 +54,11 @@ class PlanController extends Controller {
 		if ($this->isPast($day)) {
 			return new DataResponse(['error' => 'Past planning entries cannot be changed.'], 403);
 		}
-		$location = $locationId !== null ? $this->getLocationDetails($locationId, true) : null;
-		if ($locationId !== null && $location === null) {
+		if ($locationId === null || $locationId < 1) {
+			return new DataResponse(['error' => 'A location is required.'], 400);
+		}
+		$location = $this->getLocationDetails($locationId, true);
+		if ($location === null) {
 			return new DataResponse(['error' => 'Unknown location.'], 400);
 		}
 
@@ -61,6 +67,9 @@ class PlanController extends Controller {
 		$notePreview = mb_substr($note, 0, 255);
 		$timeFrom = $this->normalizeTimeValue($timeFrom);
 		$timeTo = $this->normalizeTimeValue($timeTo);
+		if ($timeFrom !== '' && $timeTo !== '' && $timeFrom > $timeTo) {
+			return new DataResponse(['error' => 'The time range is invalid.'], 400);
+		}
 		$timeValue = $this->formatTimeRange($timeFrom, $timeTo);
 
 		if ($id > 0) {
@@ -168,16 +177,22 @@ class PlanController extends Controller {
 		$rows = $result->fetchAll();
 		$result->closeCursor();
 
-		return array_map(function(array $row): array {
+		$displayNames = $this->getDisplayNames(array_column($rows, 'user_id'));
+
+		return array_map(function(array $row) use ($displayNames): array {
 			$locationDeleted = ($row['location_id'] !== null && ($row['name'] ?? null) === null);
 			$locationName = ($row['name'] ?? '') !== '' ? $row['name'] : ($row['location_name'] ?? '');
+			if ($locationName === '') {
+				$locationName = $row['location_id'] !== null ? 'Deleted location' : 'No location';
+			}
 
 			return [
 				'id' => (int)$row['id'],
 				'userId' => $row['user_id'],
+				'userName' => $displayNames[$row['user_id']] ?? $row['user_id'],
 				'day' => $row['day'],
 				'locationId' => $row['location_id'] !== null ? (int)$row['location_id'] : null,
-				'locationName' => $locationName !== '' ? $locationName : 'Deleted location',
+				'locationName' => $locationName,
 				'locationDeleted' => $locationDeleted,
 				'color' => ($row['color'] ?? '') !== '' ? $row['color'] : (($row['location_color'] ?? '') !== '' ? $row['location_color'] : '#6b7280'),
 				'note' => ($row['note_text'] ?? '') !== '' ? $row['note_text'] : ($row['note'] ?? ''),
@@ -187,6 +202,20 @@ class PlanController extends Controller {
 				'editable' => $row['user_id'] === $this->userId && !$this->isPast($row['day']),
 			];
 		}, $rows);
+	}
+
+	private function getDisplayNames(array $userIds): array {
+		$names = [];
+		foreach (array_unique($userIds) as $userId) {
+			$user = $this->userManager->get((string)$userId);
+			if ($user instanceof IUser) {
+				$names[$userId] = $user->getDisplayName();
+			} else {
+				$names[$userId] = (string)$userId;
+			}
+		}
+
+		return $names;
 	}
 
 	private function findOwnPlanById(int $id): ?array {

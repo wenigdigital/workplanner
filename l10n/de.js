@@ -60,7 +60,18 @@ OC.L10N.register(
 		"Unknown location.": "Unbekannter Standort.",
 		"Planning entry not found.": "Planungseintrag wurde nicht gefunden.",
 		"Deleted location": "Gelöschter Standort",
-		"deleted": "gelöscht"
+		"deleted": "gelöscht",
+		"No location": "Kein Standort",
+		"The time range is invalid.": "Der Zeitbereich ist ungültig.",
+		"A location is required.": "Kein Standort ausgewählt.",
+		"Read-only team work location planning": "Schreibgeschützte Team-Arbeitsortplanung",
+		"User: ": "Benutzer: ",
+		"Location: ": "Standort: ",
+		"Time: ": "Zeit: ",
+		"Sort": "Sortierung",
+		"By time": "Nach Zeit",
+		"By user": "Nach Benutzer",
+		"Filter users": "Benutzer filtern"
 	},
 	"nplurals=2; plural=(n != 1);"
 );

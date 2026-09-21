@@ -80,6 +80,7 @@
 }
 
 .workplanner__controls select,
+.workplanner__controls input,
 .workplanner-admin input,
 .workplanner-admin select,
 .workplanner-dialog input,
@@ -91,9 +92,33 @@
 	color: var(--color-main-text);
 }
 
+.workplanner__controls input {
+	width: 160px;
+}
+
+.workplanner-user {
+	margin: 8px 0 2px;
+	font-weight: 700;
+	color: var(--color-main-text);
+}
+
+.workplanner-day__plans .workplanner-user:first-child {
+	margin-top: 0;
+}
+
+.workplanner-plan--grouped strong {
+	display: none;
+}
+
 .workplanner-dialog textarea {
 	min-height: 120px;
 	resize: vertical;
+}
+
+.workplanner-dialog__error {
+	margin: 0 0 12px;
+	color: var(--color-error);
+	font-weight: 600;
 }
 
 .workplanner-quick__form {
@@ -310,6 +335,10 @@
 .workplanner-plan small {
 	display: block;
 	overflow-wrap: anywhere;
+}
+
+.workplanner-plan--grouped .workplanner-plan__dot {
+	margin-top: 6px;
 }
 
 .workplanner-plan strong {

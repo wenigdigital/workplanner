@@ -24,7 +24,7 @@ class LocationController extends Controller {
 	}
 
 	public function create(string $name, string $color = '#2f6fdd', string $description = '', int $sortOrder = 0, bool $active = true): DataResponse {
-		$name = trim($name);
+		$name = mb_substr(trim($name), 0, 120);
 		if ($name === '') {
 			return new DataResponse(['error' => 'The name must not be empty.'], 400);
 		}
@@ -45,7 +45,7 @@ class LocationController extends Controller {
 	}
 
 	public function update(int $id, string $name, string $color = '#2f6fdd', string $description = '', int $sortOrder = 0, bool $active = true): DataResponse {
-		$name = trim($name);
+		$name = mb_substr(trim($name), 0, 120);
 		if ($name === '') {
 			return new DataResponse(['error' => 'The name must not be empty.'], 400);
 		}
