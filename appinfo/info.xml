@@ -76,7 +76,7 @@ If you find Workplanner useful, you can support its development with a small don
 	<author mail="wenigdigital@gmail.com">Toni Wenig</author>
 	<namespace>Workplanner</namespace>
 	<category>organization</category>
-	<website>https://github.com/wenigdigital/workplanner</website>
+	<website>https://wenigdigital.github.io/workplanner</website>
 	<bugs>https://github.com/wenigdigital/workplanner/issues</bugs>
 	<repository type="git">https://github.com/wenigdigital/workplanner.git</repository>
 	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/overview.png</screenshot>
