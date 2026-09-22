@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workplanner – Nextcloud App für die gemeinsame Arbeitsort-Planung</title>
+<meta name="description" content="Workplanner ist eine Nextcloud-App, mit der Teams ihre Arbeitsorte wie Büro, Homeoffice oder Außendienst gemeinsam in einer wöchentlichen oder monatlichen Übersicht planen.">
+<style>
+  :root {
+    --nc-blue: #0082c9;
+    --nc-blue-dark: #006aa3;
+    --text: #222;
+    --muted: #667085;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --border: #e4e7ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  header.hero {
+    background: linear-gradient(135deg, var(--nc-blue) 0%, #2d9cdb 100%);
+    color: #fff;
+    padding: 56px 0 64px;
+    text-align: center;
+  }
+  header.hero img.logo { width: 72px; height: 72px; margin-bottom: 16px; }
+  header.hero h1 { margin: 0 0 10px; font-size: 40px; font-weight: 700; }
+  header.hero p { margin: 0 auto 24px; max-width: 640px; font-size: 18px; opacity: .95; }
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 4px 6px;
+  }
+  .btn-primary { background: #fff; color: var(--nc-blue-dark); }
+  .btn-primary:hover { background: #eef7fd; }
+  .btn-ghost { background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.5); }
+  .btn-ghost:hover { background: rgba(255,255,255,.28); }
+  section { padding: 40px 0; }
+  h2 { font-size: 26px; margin: 0 0 18px; }
+  .screenshot { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 24px rgba(16,24,40,.08); background: #fff; }
+  .screenshot img { display: block; width: 100%; height: auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 8px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 16px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .card .icon { font-size: 22px; display: block; margin-bottom: 10px; }
+  .en { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 26px; }
+  .en h2 { margin-top: 0; }
+  .en p { margin: 0 0 10px; color: #344054; }
+  .install code, .donate code {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 14px;
+  }
+  .donate { text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 28px; }
+  .donate p { max-width: 560px; margin: 0 auto 16px; color: var(--muted); }
+  .btn-donate { background: var(--nc-blue); color: #fff; }
+  .btn-donate:hover { background: var(--nc-blue-dark); }
+  footer { padding: 28px 0 40px; text-align: center; color: var(--muted); font-size: 14px; }
+  footer a { color: var(--nc-blue-dark); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    header.hero h1 { font-size: 30px; }
+    header.hero p { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <img class="logo" src="app.svg" alt="Workplanner Logo">
+    <h1>Workplanner</h1>
+    <p>Plane mit deinem Team, wer wann wo arbeitet – Büro, Homeoffice, Außendienst. Direkt in Nextcloud, ohne extra Tools.</p>
+    <a class="btn btn-primary" href="https://apps.nextcloud.com/apps/workplanner">Im Nextcloud App Store</a>
+    <a class="btn btn-ghost" href="https://github.com/wenigdigital/workplanner">GitHub</a>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>So sieht es aus</h2>
+    <div class="screenshot"><img src="screenshots/overview.png" alt="Workplanner Wochenübersicht"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Funktionen</h2>
+    <div class="grid">
+      <div class="card"><span class="icon">📅</span><h3>Team-Übersicht</h3><p>Gemeinsame Wochen- und Monatsansicht aller Arbeitsort-Planungen – wer ist wann wo?</p></div>
+      <div class="card"><span class="icon">📍</span><h3>Standorte</h3><p>Admins verwalten farbig markierte Standorte zentral – anlegen, sortieren, deaktivieren oder löschen.</p></div>
+      <div class="card"><span class="icon">✏️</span><h3>Flexible Einträge</h3><p>Mehrere Einträge pro Tag mit optionaler Zeitspanne (von bis) und Notiz – z. B. Büro vormittags, Kunde nachmittags.</p></div>
+      <div class="card"><span class="icon">🔍</span><h3>Sortierung &amp; Filter</h3><p>Einträge nach Zeit oder nach Benutzer anzeigen – mit Benutzer-Filter für größere Teams.</p></div>
+      <div class="card"><span class="icon">📲</span><h3>Mobile Schnelleingabe</h3><p>Eintrag in Sekunden vom Smartphone – auch unterwegs, ohne die volle Übersicht zu öffnen.</p></div>
+      <div class="card"><span class="icon">🗓️</span><h3>Kalender-Feed</h3><p>Geschützter, schreibgeschützter iCal-Feed – Teamplanung direkt im Kalender auf Handy, Tablet oder Desktop.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Installation</h2>
+    <div class="en">
+      <p><strong>App Store:</strong> <a href="https://apps.nextcloud.com/apps/workplanner">Workplanner im Nextcloud App Store</a> – einfach installieren und aktivieren.</p>
+      <p><strong>Manuell:</strong> Die App unter dem Namen <code>workplanner</code> in das <code>apps</code>-Verzeichnis deiner Nextcloud kopieren und in der Apps-Übersicht aktivieren. Nextcloud 30 oder neuer erforderlich.</p>
+      <p><strong>Quelle:</strong> <a href="https://github.com/wenigdigital/workplanner">github.com/wenigdigital/workplanner</a> (AGPL-3.0-or-later).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="en">
+      <h2>English</h2>
+      <p>Workplanner helps teams coordinate office, remote, home office, and customer-site work directly in Nextcloud. Users plan one or more work location entries per day, add optional time ranges and notes, and view the shared plan in weekly or monthly views – sorted by time or by user, with a live user filter.</p>
+      <p>Administrators manage the available locations, past entries stay visible but read-only, and a tokenized, read-only calendar feed makes the planning visible on phones, tablets, and desktop calendar apps. English and German translations are included.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="donate">
+      <h2>Unterstützung</h2>
+      <p>Workplanner ist Open Source (AGPL-3.0) und kostenlos. Wenn die App dir im Alltag nützt, unterstütze die Weiterentwicklung gern mit einer kleinen Spende:</p>
+      <a class="btn btn-donate" href="https://paypal.me/ToniWenig" target="_blank" rel="noreferrer noopener">Spenden über PayPal</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Workplanner von <a href="https://github.com/wenigdigital">Toni Wenig</a> · <a href="https://github.com/wenigdigital/workplanner">Quellcode auf GitHub</a> · <a href="https://github.com/wenigdigital/workplanner/issues">Issues &amp; Feature Requests</a>
+  </div>
+</footer>
+
+</body>
+</html>
