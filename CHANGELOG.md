@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.11
+
+- Added the official Nextcloud App Store donation button (PayPal) via the donation tag in info.xml.
+
 ## 1.3.10
 
 - Added a PayPal donation link to the app store description and to the calendar feed section of the app.
