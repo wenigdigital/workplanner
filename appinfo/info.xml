@@ -79,6 +79,7 @@ If you find Workplanner useful, you can support its development with a small don
 	<website>https://wenigdigital.github.io/workplanner</website>
 	<bugs>https://github.com/wenigdigital/workplanner/issues</bugs>
 	<repository type="git">https://github.com/wenigdigital/workplanner.git</repository>
+	<donation title="Spenden über PayPal" type="paypal">https://paypal.me/ToniWenig</donation>
 	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/overview.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/add-entry.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/admin.png</screenshot>
