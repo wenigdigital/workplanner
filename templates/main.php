@@ -29,6 +29,7 @@ style('workplanner', 'workplanner');
 		<div>
 			<strong><?php p($l->t('Calendar feed')); ?></strong>
 			<p><?php p($l->t('Read-only calendar subscription with all planning entries.')); ?></p>
+			<p><?php p($l->t('Support the development with a small donation:')); ?> <a href="https://paypal.me/ToniWenig" target="_blank" rel="noreferrer noopener"><?php p($l->t('Donate via PayPal')); ?></a></p>
 		</div>
 		<div class="workplanner-feed__actions">
 			<input type="text" readonly data-role="feed-url" aria-label="<?php p($l->t('Calendar feed URL')); ?>">

@@ -61,9 +61,15 @@ Vergangene Einträge bleiben zur Nachvollziehbarkeit sichtbar, können aber nich
 - Team-Verfügbarkeit nach Standort
 - Gemeinsame Planung für kleine und mittelgroße Organisationen
 
+## Unterstützung
+
+Wenn Workplanner dich im Alltag nützt, unterstütze die Weiterentwicklung gern mit einer kleinen Spende: [paypal.me/ToniWenig](https://paypal.me/ToniWenig)
+
 ## English summary
 
 Workplanner helps teams coordinate office, remote, home office, and customer-site work directly in Nextcloud. Users can plan one or more work location entries per day, add optional time ranges and notes, and view the shared plan in weekly or monthly views. Administrators manage the available locations, and a read-only calendar feed makes the planning visible on phones, tablets, and desktop calendar apps.
+
+If you find Workplanner useful, you can support its development with a small donation via PayPal: https://paypal.me/ToniWenig
 ]]></description>
 	<version>1.3.9</version>
 	<licence>AGPL-3.0-or-later</licence>

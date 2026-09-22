@@ -68,6 +68,8 @@ OC.L10N.register(
 		"User: ": "Benutzer: ",
 		"Location: ": "Standort: ",
 		"Time: ": "Zeit: ",
+		"Support the development with a small donation:": "Unterstütze die Weiterentwicklung mit einer kleinen Spende:",
+		"Donate via PayPal": "Spenden über PayPal",
 		"Sort": "Sortierung",
 		"By time": "Nach Zeit",
 		"By user": "Nach Benutzer",
