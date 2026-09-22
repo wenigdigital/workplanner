@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.10
+
+- Added a PayPal donation link to the app store description and to the calendar feed section of the app.
+
 ## 1.3.9
 
 - Use PHP attributes instead of legacy docblock annotations for the public calendar feed route.
