@@ -211,6 +211,25 @@
 	min-width: 220px;
 }
 
+.workplanner__footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 4px;
+	padding: 4px 2px 24px;
+}
+
+.workplanner__footer a {
+	font-size: 12px;
+	color: var(--color-text-maxcontrast);
+	text-decoration: none;
+	transition: color .12s ease;
+}
+
+.workplanner__footer a:hover {
+	color: var(--color-main-text);
+	text-decoration: underline;
+}
+
 .workplanner__grid {
 	display: grid;
 	width: 100%;

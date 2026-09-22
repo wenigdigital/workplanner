@@ -29,7 +29,6 @@ style('workplanner', 'workplanner');
 		<div>
 			<strong><?php p($l->t('Calendar feed')); ?></strong>
 			<p><?php p($l->t('Read-only calendar subscription with all planning entries.')); ?></p>
-			<p><?php p($l->t('Support the development with a small donation:')); ?> <a href="https://paypal.me/ToniWenig" target="_blank" rel="noreferrer noopener"><?php p($l->t('Donate via PayPal')); ?></a></p>
 		</div>
 		<div class="workplanner-feed__actions">
 			<input type="text" readonly data-role="feed-url" aria-label="<?php p($l->t('Calendar feed URL')); ?>">
@@ -38,6 +37,9 @@ style('workplanner', 'workplanner');
 	</section>
 	<div class="workplanner__range-title" data-role="range-title"></div>
 	<div class="workplanner__grid" data-role="calendar"></div>
+	<footer class="workplanner__footer">
+		<a href="https://paypal.me/ToniWenig" target="_blank" rel="noreferrer noopener"><?php p($l->t('Donate via PayPal')); ?></a>
+	</footer>
 </div>
 
 <div id="workplanner-dialog" class="workplanner-dialog" hidden>
