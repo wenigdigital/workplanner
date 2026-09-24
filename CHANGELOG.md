@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.12
+
+- Add GitHub Pages links for user and administrator documentation.
+- Add the repository as developer documentation.
+- Use consistent author metadata.
+
 ## 1.3.11
 
 - Added the official Nextcloud App Store donation button (PayPal) via the donation tag in info.xml.
