@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.13
+
+- Serve App Store screenshots from the GitHub Pages site.
+
 ## 1.3.12
 
 - Add GitHub Pages links for user and administrator documentation.
