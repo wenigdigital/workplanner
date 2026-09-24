@@ -85,10 +85,10 @@ If you find Workplanner useful, you can support its development with a small don
 	<bugs>https://github.com/wenigdigital/workplanner/issues</bugs>
 	<repository type="git">https://github.com/wenigdigital/workplanner.git</repository>
 	<donation title="Spenden über PayPal" type="paypal">https://paypal.me/ToniWenig</donation>
-	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/overview.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/add-entry.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/admin.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/wenigdigital/workplanner/main/screenshots/quick-entry.png</screenshot>
+	<screenshot>https://wenigdigital.github.io/workplanner/screenshots/overview.png</screenshot>
+	<screenshot>https://wenigdigital.github.io/workplanner/screenshots/add-entry.png</screenshot>
+	<screenshot>https://wenigdigital.github.io/workplanner/screenshots/admin.png</screenshot>
+	<screenshot>https://wenigdigital.github.io/workplanner/screenshots/quick-entry.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="30" max-version="34"/>
 	</dependencies>
