@@ -73,7 +73,7 @@ If you find Workplanner useful, you can support its development with a small don
 ]]></description>
 	<version>1.3.11</version>
 	<licence>AGPL-3.0-or-later</licence>
-	<author mail="wenigdigital@gmail.com">Toni Wenig</author>
+	<author mail="wenigdigital@gmail.com">T. Wenig</author>
 	<namespace>Workplanner</namespace>
 	<category>organization</category>
 	<website>https://wenigdigital.github.io/workplanner</website>
