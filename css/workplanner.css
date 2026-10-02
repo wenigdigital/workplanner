@@ -148,6 +148,7 @@
 	border-color: var(--color-border);
 	background-color: var(--color-main-background);
 	color: var(--color-main-text);
+	touch-action: manipulation;
 }
 
 .workplanner-quick__form textarea {

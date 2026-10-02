@@ -24,16 +24,16 @@ style('workplanner', 'workplanner');
 		<div class="workplanner-quick__times">
 			<label>
 				<span><?php p($l->t('From')); ?></span>
-				<input type="time" name="timeFrom">
+				<input type="text" name="timeFrom" inputmode="numeric" pattern="([01]\d|2[0-3]):[0-5]\d" placeholder="09:00" autocomplete="off" autocapitalize="off" spellcheck="false">
 			</label>
 			<label>
 				<span><?php p($l->t('To')); ?></span>
-				<input type="time" name="timeTo">
+				<input type="text" name="timeTo" inputmode="numeric" pattern="([01]\d|2[0-3]):[0-5]\d" placeholder="17:00" autocomplete="off" autocapitalize="off" spellcheck="false">
 			</label>
 		</div>
 		<label>
 			<span><?php p($l->t('Note')); ?></span>
-			<textarea name="note" maxlength="1000" rows="5"></textarea>
+			<textarea name="note" maxlength="1000" rows="5" autocomplete="off" autocapitalize="sentences" spellcheck="true"></textarea>
 		</label>
 		<button type="submit" class="button primary workplanner-quick__save"><?php p($l->t('Save')); ?></button>
 	</form>

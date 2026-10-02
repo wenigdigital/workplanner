@@ -67,21 +67,6 @@
 			.catch(error => setStatus(error.message, true));
 	}
 
-	function isCompleteTime(value) {
-		return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
-	}
-
-	timeFromInput.addEventListener('input', () => {
-		if (isCompleteTime(timeFromInput.value)) {
-			(timeToInput.value === '' ? timeToInput : noteInput).focus();
-		}
-	});
-	timeToInput.addEventListener('input', () => {
-		if (isCompleteTime(timeToInput.value)) {
-			noteInput.focus();
-		}
-	});
-
 	form.addEventListener('submit', event => {
 		event.preventDefault();
 		const timeFrom = timeFromInput.value;
