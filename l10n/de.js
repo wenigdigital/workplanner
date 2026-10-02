@@ -50,6 +50,7 @@ OC.L10N.register(
 		"Delete permanently": "Dauerhaft löschen",
 		"Delete this inactive location permanently?": "Diesen inaktiven Standort dauerhaft löschen?",
 		"Loading locations ...": "Lade Standorte ...",
+		"No active locations are available.": "Es sind keine aktiven Standorte verfügbar.",
 		"Saving ...": "Speichere ...",
 		"Saved.": "Gespeichert.",
 		"The name must not be empty.": "Der Name darf nicht leer sein.",

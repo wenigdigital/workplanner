@@ -22,12 +22,12 @@
 	}
 
 	function request(path, options) {
-		return fetch(apiUrl(path), Object.assign({
-			headers: {
-				'Content-Type': 'application/json',
-				'requesttoken': OC.requestToken,
-			},
-		}, options || {})).then(async response => {
+		const requestOptions = Object.assign({}, options || {});
+		requestOptions.headers = Object.assign({
+			'requesttoken': OC.requestToken,
+			'Accept': 'application/json',
+		}, requestOptions.headers || {});
+		return fetch(apiUrl(path), requestOptions).then(async response => {
 			const data = await response.json().catch(() => ({}));
 			if (!response.ok) {
 				throw new Error(data.error ? translate(data.error) : translate('The request failed.'));
@@ -52,6 +52,9 @@
 		request('/plans?start=' + today() + '&end=' + today())
 			.then(data => {
 				locationSelect.innerHTML = '';
+				if (!data.locations || data.locations.length === 0) {
+					throw new Error(translate('No active locations are available.'));
+				}
 				data.locations.forEach(location => {
 					const option = document.createElement('option');
 					option.value = String(location.id);
@@ -88,15 +91,19 @@
 			return;
 		}
 		setStatus(translate('Saving ...'));
+		const body = new URLSearchParams({
+			day: form.elements.day.value,
+			locationId: locationSelect.value,
+			timeFrom,
+			timeTo,
+			note: noteInput.value,
+		});
 		request('/plans', {
 			method: 'POST',
-			body: JSON.stringify({
-				day: form.elements.day.value,
-				locationId: Number(locationSelect.value),
-				timeFrom,
-				timeTo,
-				note: noteInput.value,
-			}),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+			},
+			body,
 		}).then(() => {
 			form.elements.note.value = '';
 			setStatus(translate('Saved.'));
