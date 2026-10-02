@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.14
+
+- Improve iPhone quick-entry fields and reliable form submission on Nextcloud.
+
 ## 1.3.13
 
 - Serve App Store screenshots from the GitHub Pages site.
